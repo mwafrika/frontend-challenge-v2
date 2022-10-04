@@ -4,6 +4,7 @@ import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './components/home';
 import NotFound from './components/notFound';
+import Form from './components/form';
 
 function App() {
   return (
@@ -11,7 +12,7 @@ function App() {
       <Router>
         <Routes>
           <Route path='/' index element={<Home />} />
-          {/* <Route path='/dragons' element={<Dragon />} /> */}
+          <Route path='/create' element={<Form />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
       </Router>

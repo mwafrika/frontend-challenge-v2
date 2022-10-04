@@ -43,7 +43,7 @@ function App() {
         <img src='/reload.svg' alt='reload' />
       </div>
 
-      <ul className='flex w-[375px] h-[44px] justify-between items-center px-7'>
+      <ul className='flex w-[375px] h-[44px] justify-between items-center px-7 mb-[30.59px]'>
         <li>
           <Link to=''>
             <img src='/bottom/left-color.svg' alt='left' />
@@ -70,6 +70,7 @@ function App() {
           </Link>
         </li>
       </ul>
+      <div className='w-[133px] h-[5px] bg-black rounded-[100px] mx-auto'></div>
     </div>
   );
 }
