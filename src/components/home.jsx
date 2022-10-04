@@ -26,13 +26,14 @@ function App() {
           className='w-[165.63px] h-[292px] mx-auto'
         />
       </div>
-      <button
+      <Link
+        to='/create'
         className='w-[187px] h-[50px] text-[16px] text-[#FFFFFF] leading-[18px] font-bold bg-gradient-to-r to-[#E87BF8] from-[#8456EC] mx-auto flex justify-center items-center p-[16px] gap-[10px] rounded-[10px] mb-[13.7px]
       hover:shadow-lg hover:scale-105 transition-all duration-300 ease-in-out
       '
       >
         🎉 Create my event
-      </button>
+      </Link>
       <div className=' w-[375px] h-[0.5px] bg-gray-300 mb-2'></div>
       <div className='w-[331px] h-[44px] bg-gray-300 rounded-xl mx-auto flex items-center justify-between px-3 text-[14px] leading-[17px] mb-[14px]'>
         <img src='/a.svg' alt='a' />

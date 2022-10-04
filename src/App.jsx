@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './components/home';
 import NotFound from './components/notFound';
 import Form from './components/form';
+import Details from './components/eventDetails';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Routes>
           <Route path='/' index element={<Home />} />
           <Route path='/create' element={<Form />} />
+          <Route path='/event' element={<Details />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
       </Router>
