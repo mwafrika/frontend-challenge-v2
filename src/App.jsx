@@ -1,6 +1,3 @@
-import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './components/home';
 import NotFound from './components/notFound';
@@ -9,7 +6,7 @@ import Details from './components/eventDetails';
 
 function App() {
   return (
-    <div className='App'>
+    <div className='h-screen w-full bg-[#F6F2FF]'>
       <Router>
         <Routes>
           <Route path='/' index element={<Home />} />
