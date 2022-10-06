@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useRef, useLayoutEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Form = () => {
   const [event, setEvent] = useState({
@@ -11,14 +11,21 @@ const Form = () => {
     startDate: '',
   });
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
+  const navigate = useNavigate();
+  const fileInput = useRef();
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
     setEvent({ ...event, [name]: value });
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log(event);
+  const handleFile = (e) => {
+    const { files } = e.target;
+    const reader = new FileReader();
+    reader.readAsDataURL(files[0]);
+    reader.onload = () => {
+      setEvent({ ...event, image: reader.result });
+    };
   };
 
   return (
@@ -36,7 +43,7 @@ const Form = () => {
           <br />
           <span className='text-transparent bg-clip-text bg-gradient-to-r to-[#E87BF8] from-[#8456EC] '>
             event
-          </span>{' '}
+          </span>
         </h1>
         <p className='w-[321px] h-[36px] text-center leading-[18px] font-light not-italic text-[16px] text-[#4F4F4F]'>
           Easily host and share events with your friends across any social
@@ -44,10 +51,7 @@ const Form = () => {
         </p>
       </div>
       <div>
-        <form
-          className='flex flex-col items-center gap-4'
-          onSubmit={handleSubmit}
-        >
+        <form className='flex flex-col items-center gap-4'>
           <input
             type='text'
             name='event'
@@ -83,37 +87,31 @@ const Form = () => {
           <input
             type='text'
             name='location'
-            id='location'
             value={event.location}
-            handleChange={handleChange}
+            onChange={handleChange}
             placeholder='Location'
             className='w-[321px] h-[50px] text-[16px] text-[#4F4F4F] leading-[18px] font-light not-italic bg-[#FFFFFF] border-[1px] border-[#E0E0E0] rounded-[10px] p-[16px]'
           />
 
-          <label class='block'>
-            <span class='sr-only'>Choose profile photo</span>
+          <label className='block'>
+            <span className='sr-only'>Choose profile photo</span>
             <input
               type='file'
-              className='block w-full text-sm text-slate-500
-              file:mr-4 file:py-2 file:px-4
-                file:rounded-full file:border-0
-                file:text-sm file:font-semibold
+              className='block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold
                 file:bg-violet-50 file:text-violet-700
                 hover:file:bg-violet-100
-                focus:file:ring-2 focus:file:ring-offset-2
-    '
-              name='image'
-              onChange={handleChange}
-              value={event.image}
+                focus:file:ring-2 focus:file:ring-offset-2'
+              ref={fileInput}
+              onChange={handleFile}
             />
           </label>
-          <Link
-            to='/event'
+          <button
             type='submit'
+            onClick={() => navigate('/event', { state: event })}
             className='text-center w-[321px] h-[50px] text-[16px] text-[#FFFFFF] leading-[18px] font-light not-italic bg-[#8456EC] border-[1px] border-[#8456EC] rounded-[10px] p-[16px]'
           >
             Create event
-          </Link>
+          </button>
         </form>
       </div>
     </div>
