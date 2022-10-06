@@ -1,43 +1,138 @@
 import React, { useState } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams, useLocation, Link } from 'react-router-dom';
+import moment from 'moment-timezone';
 
 const eventDetails = () => {
   const locat = useLocation();
-  const { host, location, image, endDate, event, startDate } = locat.state;
 
-  console.log(host, location, image, endDate, event, startDate, 'event');
+  const isEmpty = (obj) => {
+    for (var key in obj) {
+      if (obj.hasOwnProperty(key)) return false;
+    }
+    return true;
+  };
+  console.log(!!isEmpty(locat.state), 'event');
 
-  return (
-    <div className='w-[375px] h-[813px] bg-[#F6F2FF] flex flex-col overflow-y-scroll pt-[94px] overflow-x-hidden'>
+  const NoEvent = () => (
+    <div className='w-[375px] h-[813px] bg-[#F6F2FF] flex flex-col items-center overflow-y-scroll pt-[94px] overflow-hidden'>
+      <Link to='/'>
+        <img
+          src='/bottom/left-color.svg'
+          alt='left'
+          className='absolute top-5 left-5 w-[24px] h-[24px]'
+        />
+      </Link>
       <div className='flex flex-col items-center p-0 w-[321px] h-[160px] font-[Helvetica] gap-4'>
         <h1 className='text-[36px] leading-[41px] text-center font-bold not-italic text-[#240D57]'>
-          {event}
+          No event found
         </h1>
         <p className='w-[321px] h-[36px] text-center leading-[18px] font-light not-italic text-[16px] text-[#4F4F4F]'>
-          {host}
+          Please create an event to view details
         </p>
       </div>
-      <div className='flex flex-col items-center gap-4'>
-        <img src={image} alt='event' className='w-[321px] h-[160px]' />
-        <div className='flex flex-col items-center gap-4'>
-          <div className='flex flex-row items-center gap-4'>
-            <p className='text-[16px] leading-[18px] font-light not-italic text-[#4F4F4F]'>
-              {location}
-            </p>
-          </div>
-          <div className='flex flex-row items-center gap-4'>
-            <p className='text-[16px] leading-[18px] font-light not-italic text-[#4F4F4F]'>
-              {startDate}
-            </p>
-          </div>
-          <div className='flex flex-row items-center gap-4'>
-            <p className='text-[16px] leading-[18px] font-light not-italic text-[#4F4F4F]'>
-              {endDate}
-            </p>
-          </div>
-        </div>
-      </div>
+      <Link
+        to='/create'
+        className='w-[187px] h-[50px] text-[16px] text-[#FFFFFF] leading-[18px] font-bold bg-gradient-to-r to-[#E87BF8] from-[#8456EC] mx-auto flex justify-center items-center p-[16px] gap-[10px] rounded-[10px] mb-[13.7px]
+      hover:shadow-lg hover:scale-105 transition-all duration-300 ease-in-out
+      '
+      >
+        🎉 Create my event
+      </Link>
     </div>
+  );
+
+  return (
+    <>
+      {!!isEmpty(locat.state) ? (
+        <NoEvent />
+      ) : (
+        <div className='w-[375px] h-[813px] bg-[#FBFAFF] flex flex-col overflow-y-scroll overflow-x-hidden'>
+          <div className='h-[375px] w-full bg-[#E87BF8]'>
+            <img
+              src={locat.state.image}
+              alt='event'
+              className='w-full h-full'
+            />
+          </div>
+
+          <div className='flex flex-col gap-4 w-full h-[304.67px] px-5 py-2'>
+            <h1 className='text-[#240D57] font-bold text-[28px] leading-8 not-italic'>
+              {locat.state.event}
+            </h1>
+            <p className='text-[14px] leading-4 text-[#828282] font-[400] not-italic font-[Helvetica] mb-8'>
+              Hosted By <span className='font-[700]'>{locat.state.host}</span>
+            </p>
+            <div className='flex items-center justify-between'>
+              <img src='/event/date.svg' alt='location' />
+              <div className='flex flex-col justify-center mr-6'>
+                <p className='text-[16px] leading-[18px] text-[#240D57] font-bold not-italic font-[Helvetica]'>
+                  {moment(locat.state.startDate).format('DD MMMM h:mm A')}
+                </p>
+                <p className='text-[14px] leading-4 text-[#4F4F4F] font-[400] not-italic font-[Helvetica]'>
+                  to {moment.tz(locat.state.endDate).format('DD MMMM h:mm A z')}
+                </p>
+              </div>
+              <div className='w-[14px] h-[7px]'>
+                <img src='/bottom/right.svg' alt='location' />
+              </div>
+            </div>
+            <div className='flex items-center justify-between'>
+              <img src='/event/location.svg' alt='location' />
+              <div className='flex flex-col justify-start w-[66%]'>
+                <p className='text-[16px] leading-[18px] text-[#240D57] font-bold not-italic font-[Helvetica]'>
+                  Street name
+                </p>
+                <p className='text-[14px] leading-4 text-[#4F4F4F] font-[400] not-italic font-[Helvetica]'>
+                  {locat.state.location}
+                </p>
+              </div>
+              <div className='w-[14px] h-[7px]'>
+                <img src='/bottom/right.svg' alt='location' />
+              </div>
+            </div>
+          </div>
+
+          <div className='w-[375px] h-[0.5px] bg-gray-300 mb-2'></div>
+          <div className='w-[331px] h-[44px] bg-gray-300 rounded-xl mx-auto flex items-center justify-between px-3 text-[14px] py-[16px] leading-[17px] mb-[14px]'>
+            <img src='/a.svg' alt='a' />
+            <div className='flex gap-1'>
+              <img src='/lock.svg' alt='lock' />
+              <p>domain.com</p>
+            </div>
+            <img src='/reload.svg' alt='reload' />
+          </div>
+
+          <ul className='flex w-[375px] h-[44px] justify-between items-center px-7 mb-[30.59px]'>
+            <li>
+              <Link to=''>
+                <img src='/bottom/left-color.svg' alt='left' />
+              </Link>
+            </li>
+            <li>
+              <Link to=''>
+                <img src='/bottom/right.svg' alt='right' />
+              </Link>
+            </li>
+            <li>
+              <Link to=''>
+                <img src='/bottom/upload.svg' alt='upload' />
+              </Link>
+            </li>
+            <li>
+              <Link to=''>
+                <img src='/bottom/square.svg' alt='square' />
+              </Link>
+            </li>
+            <li>
+              <Link to=''>
+                <img src='/bottom/book.svg' alt='book' />
+              </Link>
+            </li>
+          </ul>
+          <div className='w-[133px] h-[5px] bg-black rounded-[100px] mx-auto'></div>
+        </div>
+      )}
+    </>
   );
 };
 

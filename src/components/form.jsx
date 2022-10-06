@@ -69,17 +69,17 @@ const Form = () => {
             className='w-[321px] h-[50px] text-[16px] text-[#4F4F4F] leading-[18px] font-light not-italic bg-[#FFFFFF] border-[1px] border-[#E0E0E0] rounded-[10px] p-[16px]'
           />
           <input
-            type='date'
+            type='datetime-local'
             name='startDate'
-            value={event.startDate}
+            value={event.startDate || '2021-08-01T00:00'}
             onChange={handleChange}
             placeholder='Start time'
             className='w-[321px] h-[50px] text-[16px] text-[#4F4F4F] leading-[18px] font-light not-italic bg-[#FFFFFF] border-[1px] border-[#E0E0E0] rounded-[10px] p-[16px]'
           />
           <input
-            type='date'
+            type='datetime-local'
             name='endDate'
-            value={event.endDate}
+            value={event.endDate || '2021-09-01T00:00'}
             onChange={handleChange}
             placeholder='End time'
             className='w-[321px] h-[50px] text-[16px] text-[#4F4F4F] leading-[18px] font-light not-italic bg-[#FFFFFF] border-[1px] border-[#E0E0E0] rounded-[10px] p-[16px]'
